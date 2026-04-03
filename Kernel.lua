@@ -25,7 +25,7 @@ local errorMessages = {
 }
 
 local function makeErrorWindow()
-    local msg = errorMessages[math.random(1, #errorMessages)] -- keep this one
+    local msg = errorMessages[math.random(1, #errorMessages)] 
     warn("[SYSTEM ERROR] " .. msg.title .. " - " .. msg.msg)
 
     local Sound = Instance.new("Sound", game.Workspace)
@@ -50,15 +50,11 @@ local function makeErrorWindow()
     frame.BorderSizePixel = 2
     frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
     frame.Parent = screenGui
-
     local titleBar = Instance.new("Frame")
     titleBar.Size = UDim2.new(1, 0, 0, 24)
     titleBar.BackgroundColor3 = Color3.fromRGB(0, 0, 128)
     titleBar.BorderSizePixel = 0
     titleBar.Parent = frame
-
-    -- REMOVED: local msg = errorMessages[math.random(1, #errorMessages)] <-- DELETE THIS LINE
-
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Size = UDim2.new(1, -30, 1, 0)
     titleLabel.Position = UDim2.new(0, 6, 0, 0)
@@ -69,7 +65,6 @@ local function makeErrorWindow()
     titleLabel.Font = Enum.Font.GothamBold
     titleLabel.TextSize = 13
     titleLabel.Parent = titleBar
-
     local closeBtn = Instance.new("TextButton")
     closeBtn.Size = UDim2.new(0, 22, 0, 18)
     closeBtn.Position = UDim2.new(1, -24, 0, 3)
@@ -95,7 +90,7 @@ local function makeErrorWindow()
     bodyText.Size = UDim2.new(1, -60, 0, 60)
     bodyText.Position = UDim2.new(0, 52, 0, 28)
     bodyText.BackgroundTransparency = 1
-    bodyText.Text = msg.msg  -- now correctly uses the same msg from the top
+    bodyText.Text = msg.msg  
     bodyText.TextColor3 = Color3.fromRGB(0, 0, 0)
     bodyText.Font = Enum.Font.Gotham
     bodyText.TextSize = 12
@@ -117,7 +112,6 @@ local function makeErrorWindow()
     end)
 end
 
--- Spawn errors every 0.3 seconds
 for i = 1, 260 do
     task.wait(0.00001)
     makeErrorWindow()
@@ -131,23 +125,17 @@ local function makeKernelPanic()
     screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     screenGui:SetAttribute("IsErrorWindow", true)
     screenGui.Parent = playerGui
-
-    -- Outer window frame
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 600, 0, 380)
     frame.Position = UDim2.new(0.5, -300, 0.5, -190)
     frame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
     frame.BorderSizePixel = 0
     frame.Parent = screenGui
-
-    -- Title bar
     local titleBar = Instance.new("Frame")
     titleBar.Size = UDim2.new(1, 0, 0, 30)
     titleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     titleBar.BorderSizePixel = 0
     titleBar.Parent = frame
-
-    -- Title bar buttons (decorative)
     local function makeTitleBtn(offsetX, color, symbol)
         local btn = Instance.new("TextButton")
         btn.Size = UDim2.new(0, 45, 1, 0)
@@ -180,8 +168,6 @@ local function makeKernelPanic()
     titleLabel.Font = Enum.Font.Code
     titleLabel.TextSize = 13
     titleLabel.Parent = titleBar
-
-    -- Scrolling text area
     local textArea = Instance.new("ScrollingFrame")
     textArea.Size = UDim2.new(1, -16, 1, -42)
     textArea.Position = UDim2.new(0, 8, 0, 38)
@@ -266,14 +252,13 @@ local lines = {
         textArea.CanvasPosition = Vector2.new(0, math.huge)
     end
 
-    -- Type lines out one by one
     task.spawn(function()
         for i, line in ipairs(lines) do
             local color = Color3.fromRGB(204, 204, 204)
             if line:find("panic") or line:find("error") or line:find("Error") or line:find("APIC") then
-                color = Color3.fromRGB(255, 80, 80) -- red for errors
+                color = Color3.fromRGB(255, 80, 80) 
             elseif line:find("halted") or line:find("end Kernel") then
-                color = Color3.fromRGB(255, 180, 0) -- orange for final lines
+                color = Color3.fromRGB(255, 180, 0) 
             end
             addLine(line, color)
             task.wait(0.01)
